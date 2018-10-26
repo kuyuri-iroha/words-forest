@@ -3,12 +3,23 @@
 // Author: Kuyuri Iroha, Toshiya
 //
 
-import java.util.*;
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+import java.util.Queue;
+import java.util.ArrayDeque;
 
 
-// file loader
+// File loader
 BufferedReader reader;
 Queue<String> stQueue;
+
+// Audio
+Minim minim;
+AudioPlayer sePlayer;
 
 // Effects
 int FLOW_TEXT_SIZE = 18;
@@ -30,7 +41,7 @@ STFlow stFlow;
 final String[] MATCH_STR = new String[]{
   "(雨|あめ|アメ)",
   "(雪|ゆき|ユキ)",
-  "(時間|何時|今|じかん|なんじ|いま)"
+  "(時間|何時|じかん|なんじ)"
 };
 
 
@@ -50,20 +61,27 @@ void setDefFont()
 
 void setup()
 {
-  fullScreen();
-//  size(1200, 800);
+//  fullScreen();
+  size(900, 800);
   xRatio = float(width) / 800;
   yRatio = float(height) / 500;
   minRatio = min(xRatio, yRatio);
-  
   scalingSizes();
   
+  // File reader
   reader = createReader("ts");
   stQueue = new ArrayDeque<String>();
+  
+  // Audio
+  minim = new Minim(this);
+  sePlayer = minim.loadFile("SE1.mp3");
+  sePlayer.setGain(-20.0);
 
+  // Font
   font = createFont("NotoSansCJKjp-hinted/NotoSansCJKjp-Light.otf", minRatio * 48, true);
   timeFont = createFont("futura", minRatio * 48, true);
   
+  // Objects
   effects = new ArrayList<Effect>();
   stFlow = new STFlow();
 }
@@ -147,7 +165,9 @@ void updateEffects()
             break;
           }
           matchedCount++;
-          st.effected = true;
+          st.effected = true; //<>//
+          sePlayer.play(); //<>//
+          sePlayer.rewind();
         }
       }
       // ループから抜ける
@@ -166,4 +186,13 @@ void updateEffects()
 boolean isMatch(String _str, String _matchStr)
 {
   return match(_str, _matchStr) != null;
+}
+
+
+// 終了処理
+void stop()
+{
+  sePlayer.close();
+  minim.stop();
+  super.stop();
 }
