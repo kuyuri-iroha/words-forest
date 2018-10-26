@@ -36,6 +36,7 @@ PFont timeFont;
 ArrayList<Effect> effects;
 Snow[] snows = new Snow[10000];
 STFlow stFlow;
+Ripple ripple;
 
 //マッチング用文字列
 final String[] MATCH_STR = new String[]{
@@ -61,8 +62,9 @@ void setDefFont()
 
 void setup()
 {
-//  fullScreen();
-  size(900, 800);
+  fullScreen();
+//  size(900, 800);
+  frameRate(30);
   xRatio = float(width) / 800;
   yRatio = float(height) / 500;
   minRatio = min(xRatio, yRatio);
@@ -84,6 +86,7 @@ void setup()
   // Objects
   effects = new ArrayList<Effect>();
   stFlow = new STFlow();
+  ripple = new Ripple();
 }
 
 
@@ -111,6 +114,10 @@ void draw()
   }
   
   background(bgColor);
+
+  // Ripple
+  ripple.update();
+  ripple.display();
   
   // Effects
   updateEffects();
@@ -165,9 +172,10 @@ void updateEffects()
             break;
           }
           matchedCount++;
-          st.effected = true; //<>//
-          sePlayer.play(); //<>//
+          st.effected = true;
+          sePlayer.play();
           sePlayer.rewind();
+          ripple.start();
         }
       }
       // ループから抜ける
