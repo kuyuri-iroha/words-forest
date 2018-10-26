@@ -2,33 +2,17 @@
 class STFlow
 {
   ArrayList<Sentence> stList;
+  final int TS_INIT_Y;
   
   STFlow()
   {
     stList = new ArrayList<Sentence>();
+    TS_INIT_Y = height - FLOW_TEXT_SIZE - int(yRatio * 10);
   }
   
   void add(String _str)
   {
-    float initY;
-    while(true)
-    {
-      initY = random(0.0, height - FLOW_TEXT_SIZE);
-      
-      for(Sentence st : stList)
-      {
-        if(st.pos.y < initY && initY < st.pos.y)
-        {
-          initY = -1;
-        }
-      }
-      
-      if(initY != -1)
-      {
-        break;
-      }
-    }
-    stList.add(new Sentence(_str, initY));
+    stList.add(new Sentence(_str, TS_INIT_Y));
   }
   
   void update()
@@ -64,6 +48,7 @@ class Sentence
   String str;
   boolean effected;
   static final int DEAD_POS_X = -1000;
+  static final float FLOW_SPEED = 9.0;
   
   Sentence(String _str, float _initY)
   {
@@ -76,7 +61,7 @@ class Sentence
   {
     str = _str;
     pos.set(width, _initY);
-    vel.set(random(-3.0, -1.0), 0.0);
+    vel.set(-FLOW_SPEED, 0.0);
     effected = false;
   }
   

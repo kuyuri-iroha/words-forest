@@ -24,7 +24,7 @@ class Rain extends Effect
     textSize(EFFECT_NAME_JP);
     text("雨", _x, _y);
     textSize(EFFECT_NAME_EN);
-    text("|Ame|", _x, yRatio * (_y + 50));
+    text("[rain]", _x, _y + (yRatio * 50));
   }
 
 

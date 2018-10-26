@@ -24,7 +24,7 @@ class Snow extends Effect
     textSize(EFFECT_NAME_JP);
     text("雪", _x, _y);
     textSize(EFFECT_NAME_EN);
-    text("|Yuki|", _x, yRatio * (_y + 50));
+    text("[snow]", _x, _y + (yRatio * 50));
   }
 
 

@@ -14,6 +14,7 @@ import java.util.ArrayDeque;
 
 
 // File loader
+final int LOAD_FREQ = 120;
 BufferedReader reader;
 Queue<String> stQueue;
 
@@ -26,6 +27,7 @@ int FLOW_TEXT_SIZE = 18;
 int EFFECT_NAME_JP = 48;
 int EFFECT_NAME_EN = 20;
 int TIME_TEXT_SIZE = 100;
+final int EFFECTS_WORD_OFFSET_Y = 10;
 color bgColor = color(250, 243, 245);
 color textColor = color(#0f0f0f);
 float xRatio;
@@ -80,7 +82,7 @@ void setup()
   sePlayer.setGain(-20.0);
 
   // Font
-  font = createFont("NotoSansCJKjp-hinted/NotoSansCJKjp-Light.otf", minRatio * 48, true);
+  font = createFont("NotoSansCJKjp-hinted/NotoSansCJKjp-Bold.otf", minRatio * 48, true);
   timeFont = createFont("futura", minRatio * 48, true);
   
   // Objects
@@ -93,7 +95,7 @@ void setup()
 void draw()
 {
   // reading file.
-  if(frameCount % 60 == 0)
+  if(frameCount % LOAD_FREQ == 0)
   {
     String str = null;
     try
@@ -117,7 +119,7 @@ void draw()
 
   // Ripple
   ripple.update();
-  ripple.display();
+  ripple.display(width/2, height/2 - yRatio * EFFECTS_WORD_OFFSET_Y);
   
   // Effects
   updateEffects();
@@ -126,7 +128,7 @@ void draw()
   {
     effect.update();
     effect.display();
-    effect.displayWord(width/2, height/2);
+    effect.displayWord(width/2, height/2 - yRatio * EFFECTS_WORD_OFFSET_Y);
   }
   
   

@@ -41,12 +41,12 @@ class Ripple
 		}
   }
 
-  void display()
+  void display(float _x, float _y)
   {
 		if(currentFrame != LIFE_FRAME)
 		{
       imageMode(CENTER);
-			image(img[currentFrame], width/2, height/2);
+			image(img[currentFrame], _x, _y);
 		}
   }
 }
