@@ -10,7 +10,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const fs = require('fs');
-let chokidar = require('chokidar')
+let chokidar = require('chokidar');
 
 // Imports the Google Cloud client library
 const speech = require('@google-cloud/speech');
@@ -20,7 +20,11 @@ const client = new speech.SpeechClient();
 
 
 let appendResult = (data)=> {
-    fs.appendFile('effects/data/ts', `${data}\n`, 'utf-8', (er)=> {if(er) {throw er;}});
+  fs.appendFile('effects/data/ts', `${data}\n`, 'utf-8', (er)=> {if(er) {throw er;}});
+}
+
+let notifyEndedRecord = ()=> {
+  fs.writeFile('dest/request', 'ENDED', 'utf-8', (er)=> {if(er) {throw er;}});
 }
 
 let watcher = chokidar.watch('dest/voice.raw', {
@@ -38,9 +42,10 @@ const languageCode = 'ja-JP';
 watcher.on('change', function(path) {
   let stats = fs.statSync(path);
   let fileSizeInBytes = stats["size"];
-  if (fileSizeInBytes > 0)
+  if (0 < fileSizeInBytes)
   {
     console.log(`Changed the voice file -> ${path}`);
+    notifyEndedRecord();
     let audioByte = fs.readFileSync(path).toString('base64');
     let audio = {
         content: audioByte

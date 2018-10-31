@@ -38,8 +38,8 @@ float yRatio;
 float minRatio;
 PFont font;
 PFont timeFont;
+Recording rec;
 ArrayList<Effect> effects;
-Snow[] snows = new Snow[10000];
 STFlow stFlow;
 Ripple ripple;
 
@@ -120,6 +120,9 @@ void setup()
   reader = createReader("ts");
   stQueue = new ArrayDeque<String>();
   
+  // Recording
+  rec = new Recording("../dest/request");
+  
   // Audio
   minim = new Minim(this);
   sePlayer = minim.loadFile("SE1.mp3");
@@ -158,7 +161,7 @@ void draw()
     if(str != null && !str.isEmpty())
     {
       stFlow.add(str);
-      println(str);
+      println(str); 
     }
   }
   
@@ -183,6 +186,10 @@ void draw()
   setDefFont();
   stFlow.update();
   stFlow.display();
+  
+  // 録音状態の処理
+  rec.update();
+  rec.display();
 }
 
 
@@ -287,4 +294,15 @@ void stop()
   sePlayer.close();
   minim.stop();
   super.stop();
+}
+
+
+// キー入力
+void keyPressed()
+{
+  // スペースキーが押されたら録音を開始
+  if(key == ' ')
+  {
+    rec.start();
+  }
 }
