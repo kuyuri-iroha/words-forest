@@ -11,6 +11,9 @@ import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 import java.util.Queue;
 import java.util.ArrayDeque;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Arrays;
 
 
 // File loader
@@ -40,12 +43,53 @@ Snow[] snows = new Snow[10000];
 STFlow stFlow;
 Ripple ripple;
 
-//マッチング用文字列
-final String[] MATCH_STR = new String[]{
+// マッチング用文字列
+final String[] MATCH_STR = new String[] {
   "(雨|あめ|アメ)",
   "(雪|ゆき|ユキ)",
-  "(時間|何時|じかん|なんじ)"
+  "(時間|何時|じかん|なんじ)",
+  "(ジャガイモ|じゃがいも|馬鈴薯|馬鈴薯)",
+  "(ネギ|ねぎ|葱)",
+  "(シイタケ|しいたけ|椎茸)",
+  "(ニンジン|にんじん|人参)",
+  "(トマト|とまと)",
+  "(キュウリ|きゅうり|胡瓜)",
+  "(ダイコン|だいこん|大根)",
 };
+
+// 辞書エフェクト用データ
+HashMap<String, String> DICTIONARY_DATA = new HashMap<String, String>();
+void CreateDictionaryData()
+{
+  DICTIONARY_DATA.put(
+    "ジャガイモ", 
+    "学名 Solanum tuberosum L.\nナス科ナス属の多年草の植物。デンプンが多く蓄えられている地下茎が芋の一種として食用とされる。"
+  );
+  DICTIONARY_DATA.put(
+    "ネギ",
+    "学名 Allium fistulosum\n匂いが強いことから「葷」の一つ「禁葷食」ともされる。料理の脇役として扱われることが一般的だが、葉ネギはねぎ焼き、根深ネギはスープなどで主食材としても扱われる。ネギの茎は下にある根から上1cmまでで、そこから上全部は葉になる。よって食材に用いられる白い部分も青い部分も全て葉の部分である。"
+  );
+  DICTIONARY_DATA.put(
+    "シイタケ", 
+    "学名：Lentinula edodes\nシイタケは日本、中国、韓国などで食用に栽培されるほか、東南アジアの高山帯や、ニュージーランドにも分布する。日本においては従来から精進料理に欠かせないものであり、食卓に上る機会も多く、また旨み成分がダシともなるため、数あるキノコの中でも知名度、人気ともに高いもののひとつである。英語でもそのままshiitakeで、フランス語ではle shiitake（男性名詞）で受け入れられている。"
+  );
+  DICTIONARY_DATA.put(
+    "ニンジン", 
+    "学名Daucus carota subsp\n原産地はアフガニスタン周辺で、大別して西洋系、東洋系の2つの種類がある。代表的な栄養素はカロテンで中サイズの1/2本で1日のビタミンA必要量が取れるほど。"
+  );
+  DICTIONARY_DATA.put(
+    "トマト", 
+    "学名 Solanum lycopersicum\nナス科ナス属の植物で、生食でも調理しても多く食べられるトマトはケチャップやトマトソースに使われるため年間消費量は野菜の中で世界一位である。またグルタミン酸の濃度が高くうま味がある。"
+  );
+  DICTIONARY_DATA.put(
+    "キュウリ", 
+    "学名 Cucumis sativus L.\nウリ科きゅうり属の植物。きゅうりは95%が水分でできていて、ギネスブックにも世界一カロリーが少ない野菜に登録されており栄養価が低いと思われがちであるが、しっかりと栄養もあり、ダイエットにも効果的な野菜である。"
+  );
+  DICTIONARY_DATA.put(
+    "ダイコン", 
+    "学名 Raphanus sativus\nvar. longipinnatus\nアブラナ科ダイコン属の植物。漬物、香辛料などさまざな調理に利用される。また春の七草のすずしろはダイコンの葉のことである。また日本人がもっとも多く食べてる野菜である。"
+  );
+}
 
 
 void scalingSizes()
@@ -64,8 +108,8 @@ void setDefFont()
 
 void setup()
 {
-  fullScreen();
-//  size(900, 800);
+//  fullScreen();
+  size(1000, 800);
   frameRate(30);
   xRatio = float(width) / 800;
   yRatio = float(height) / 500;
@@ -84,6 +128,9 @@ void setup()
   // Font
   font = createFont("NotoSansCJKjp-hinted/NotoSansCJKjp-Bold.otf", minRatio * 48, true);
   timeFont = createFont("futura", minRatio * 48, true);
+
+  // 辞書用データの作成
+  CreateDictionaryData();
   
   // Objects
   effects = new ArrayList<Effect>();
@@ -167,6 +214,41 @@ void updateEffects()
             // 現在時刻
             case 2:
             effects.add(new WhatsTime(timeFont));
+            break;
+
+            // ジャガイモ
+            case 3:
+            effects.add(new Dictionary("ジャガイモ", DICTIONARY_DATA.get("ジャガイモ")));
+            break;
+            
+            // ネギ
+            case 4:
+            effects.add(new Dictionary("ネギ", DICTIONARY_DATA.get("ネギ")));
+            break;
+            
+            // シイタケ
+            case 5:
+            effects.add(new Dictionary("シイタケ", DICTIONARY_DATA.get("シイタケ")));
+            break;
+            
+            // ニンジン
+            case 6:
+            effects.add(new Dictionary("ニンジン", DICTIONARY_DATA.get("ニンジン")));
+            break;
+            
+            // トマト
+            case 7:
+            effects.add(new Dictionary("トマト", DICTIONARY_DATA.get("トマト")));
+            break;
+            
+            // キュウリ
+            case 8:
+            effects.add(new Dictionary("キュウリ", DICTIONARY_DATA.get("キュウリ")));
+            break;
+            
+            // ダイコン
+            case 9:
+            effects.add(new Dictionary("ダイコン", DICTIONARY_DATA.get("ダイコン")));
             break;
             
             default:
