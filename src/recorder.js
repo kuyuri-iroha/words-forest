@@ -18,7 +18,7 @@ let recordFunc = ()=> {
   .pipe(file);
 }
 
-let reqFileName = 'dest/request';
+let reqFileName = 'dest/request.rq';
 let reqMS = 'recording';
 let watcher = chokidar.watch(reqFileName, {
   ignored: /[\/\\]\./,
@@ -41,22 +41,4 @@ watcher.on('change', function(path) {
       recordFunc();
     }
   }
-});
-
-process.stdin.resume();
-process.stdin.setEncoding('utf8');
-process.stdin.on('data', function(chunk) {
-  if(chunk.trim() == 's')
-  {
-    recordFunc();
-  }
-  else if(chunk.trim() == 'e')
-  {
-    console.log('end');
-    process.exit(1);
-  }
-});
-process.stdin.on('end', function()
-{
-  //do something
 });

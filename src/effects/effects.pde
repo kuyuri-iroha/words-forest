@@ -238,7 +238,7 @@ void setup()
   stQueue = new ArrayDeque<String>();
   
   // Recording
-  rec = new Recording("../dest/request");
+  rec = new Recording("../dest/request.rq");
   
   // Audio
   minim = new Minim(this);

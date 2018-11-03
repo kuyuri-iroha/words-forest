@@ -24,7 +24,7 @@ let appendResult = (data)=> {
 }
 
 let notifyEndedRecord = ()=> {
-  fs.writeFile('dest/request', 'ENDED', 'utf-8', (er)=> {if(er) {throw er;}});
+  fs.writeFile('dest/request.rq', 'ENDED', 'utf-8', (er)=> {if(er) {throw er;}});
 }
 
 let watcher = chokidar.watch('dest/voice.raw', {
