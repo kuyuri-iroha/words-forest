@@ -7,8 +7,8 @@ class Dictionary extends Effect
   Dictionary(String _word, String _desc)
   {
     super();
-    word = _word;
-    desc = _desc;
+    word = new String(_word);
+    desc = new String(_desc);
   }
 
   void update()

@@ -40,5 +40,9 @@ watcher.on('change', function(path) {
     {
       recordFunc();
     }
+    else if(-1 < data.indexOf("EndRq"))
+    {
+      record.stop();
+    }
   }
 });

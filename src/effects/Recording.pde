@@ -14,8 +14,16 @@ class Recording
 
   void start()
   {
-    recording = true;
-    saveStrings(fileName, new String[]{"recording"});
+    if(recording)
+    {
+      recording = false;
+      saveStrings(fileName, new String[]{"EndRq"});
+    }
+    else
+    {
+      recording = true;
+      saveStrings(fileName, new String[]{"recording"});
+    }
   }
 
   void update()

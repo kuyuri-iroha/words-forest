@@ -19,7 +19,9 @@ import java.util.Arrays;
 // File loader
 final int LOAD_FREQ = 120;
 BufferedReader reader;
+BufferedReader wikiReader;
 Queue<String> stQueue;
+String prevWikiRes = new String();
 
 // Audio
 Minim minim;
@@ -234,7 +236,10 @@ void setup()
   scalingSizes();
   
   // File reader
+  saveStrings("data/ts", new String[]{""});
+  saveStrings("data/wikiResult.res", new String[]{""});
   reader = createReader("ts");
+  wikiReader = createReader("wikiResult.res");
   stQueue = new ArrayDeque<String>();
   
   // Recording
@@ -267,9 +272,12 @@ void draw()
   if(frameCount % LOAD_FREQ == 0)
   {
     String str = null;
+    String wiki = null;
     try
     {
       str = reader.readLine();
+      wiki = wikiReader.readLine(); //readLine()は最初の1byteを取りこぼすためにいれた応急措置
+      wiki = wikiReader.readLine();
     }
     catch(IOException e)
     {
@@ -281,6 +289,20 @@ void draw()
     {
       stFlow.add(str);
       println(str); 
+      rec.recording = false;
+    }
+    
+    if(wiki != null && !wiki.isEmpty() && !wiki.equals("") && stFlow.stList.size() != 0)
+    {
+      if(!prevWikiRes.equals(wiki) && effects.isEmpty())
+      {
+        effects.add(new Dictionary(stFlow.stList.get(stFlow.stList.size()-1).str, wiki));
+        stFlow.stList.get(stFlow.stList.size()-1).effected = true;
+        sePlayer.play();
+        sePlayer.rewind();
+        ripple.start();
+      }
+      prevWikiRes = new String(wiki);
     }
   }
   

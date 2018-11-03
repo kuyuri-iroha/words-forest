@@ -47,6 +47,7 @@ class Ripple
 		{
       imageMode(CENTER);
 			image(img[currentFrame], _x, _y);
+      g.removeCache(img[currentFrame]);
 		}
   }
 }
