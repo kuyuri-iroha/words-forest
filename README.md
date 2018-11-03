@@ -23,7 +23,7 @@ $ npm install
 
 ### リソースの配置
 
-[data.zip](https://drive.google.com/open?id=1fEC--idxrMzQ6iKNIUtg5KfrXgvMSloP)を`/src/effects/`へダウンロードして解凍してください。
+[data.zip](https://drive.google.com/open?id=1WasKk7j9uYzmDl-UHFOIqO09jJCCvFLp)を`/src/effects/`へダウンロードして解凍してください。
 `/effects`以下のディレクトリ構造が以下のようになっていれば準備完了です。
 
 ```
