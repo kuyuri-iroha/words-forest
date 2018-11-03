@@ -45,7 +45,7 @@ class Snow extends Effect
         pos.get(i).x -= random(0.01, 0.15);
       }
       
-      pos.get(i).y += 1;
+      pos.get(i).y += 3;
     }
   }
 

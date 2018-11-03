@@ -1,5 +1,7 @@
 .DS_Store
-app/src/node_modules
-app/src/effects/data
-app/src/dest
-app/src/effects/data.zip
+src/node_modules
+src/effects/data
+src/dest
+src/effects/data.zip
+app-credentials.json
+.vscode

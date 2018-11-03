@@ -1,7 +1,7 @@
 // エフェクトの抽象クラス
 abstract class Effect
 {
-  final int LIFE_TIME = 10000;
+  final int LIFE_TIME = 15000;
   int startTime;
   int startFrame;
   
