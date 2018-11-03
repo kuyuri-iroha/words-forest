@@ -1,5 +1,5 @@
 /**
- * 録音 出力　コードファイル
+ * 録音 出力
  * Auther: Kuyuri Iroha
  */
 

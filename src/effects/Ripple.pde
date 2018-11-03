@@ -11,7 +11,7 @@ class Ripple
     img = new PImage[LIFE_FRAME];
     for(int i=0; i<LIFE_FRAME; i++)
     {
-      img[i] = loadImage("波紋/波紋_"+nf(i, 5)+".png");
+      img[i] = loadImage("波/波_"+nf(i, 5)+".png");
     }
 		currentFrame = LIFE_FRAME;
   }

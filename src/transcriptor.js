@@ -1,5 +1,5 @@
 /**
- * Google Speech API 実行　コードファイル
+ * Google Speech API 実行
  * Auther: Kuyuri Iroha
  */
 
