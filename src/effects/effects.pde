@@ -246,7 +246,7 @@ void setup()
   sePlayer.setGain(-20.0);
 
   // Font
-  font = createFont("NotoSansCJKjp-Bold", minRatio * 48, true);
+  font = createFont("NotoSansCJKjp-Bold.otf", minRatio * 48, true);
   timeFont = createFont("futura", minRatio * 48, true);
 
   // 辞書用データの作成
