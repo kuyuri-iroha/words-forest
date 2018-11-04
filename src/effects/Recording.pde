@@ -17,7 +17,7 @@ class Recording
     if(recording)
     {
       recording = false;
-      saveStrings(fileName, new String[]{"EndRq"});
+      saveStrings(fileName, new String[]{"End-rq"});
     }
     else
     {
@@ -32,5 +32,11 @@ class Recording
 
   void display()
   {
+    if(recording)
+    {
+      textAlign(RIGHT, TOP);
+      textSize(minRatio * 20);
+      text("Recording...", width, 0);
+    }
   }
 }
