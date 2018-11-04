@@ -73,7 +73,14 @@ watcher.on('change', function(path) {
         const transcription = response.results
           .map(result => result.alternatives[0].transcript)
           .join('\n');
-        console.log(`Transcription: ${transcription}`);
+        if(transcription == "")
+        {
+          console.log(`\n\n!============================!\nError: Failed transcription!!\n!============================!\n\n`);
+        }
+        else
+        {
+          console.log(`Transcription: ${transcription}`);
+        }
         // 参考: https://kuroeveryday.blogspot.com/2016/05/slackbot-with-wikipedia-api.html
         requestWiki
           .get('https://ja.wikipedia.org/w/api.php')

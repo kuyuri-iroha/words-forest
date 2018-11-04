@@ -32,5 +32,11 @@ class Recording
 
   void display()
   {
+    if(recording)
+    {
+      textAlign(RIGHT, TOP);
+      textSize(minRatio * 20);
+      text("Recording...", width, 0);
+    }
   }
 }

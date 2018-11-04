@@ -16,6 +16,10 @@ let recordFunc = ()=> {
     verbose : true
   })
   .pipe(file);
+
+  setTimeout(()=> {
+    record.stop();
+  }, 5000);
 }
 
 let reqFileName = 'dest/request.rq';
