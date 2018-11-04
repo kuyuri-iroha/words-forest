@@ -17,7 +17,7 @@ class Recording
     if(recording)
     {
       recording = false;
-      saveStrings(fileName, new String[]{"EndRq"});
+      saveStrings(fileName, new String[]{"End-rq"});
     }
     else
     {
